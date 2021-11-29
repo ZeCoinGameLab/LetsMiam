@@ -3,5 +3,5 @@ class DishCategory < ApplicationRecord
   has_many :dishes
 
   validates :name, presence: true, length: { in: 3..16 }
-  validates :restaurants_id, presence: true
+  validates :restaurant_id, presence: true
 end
