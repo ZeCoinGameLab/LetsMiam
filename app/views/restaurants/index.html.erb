@@ -1,0 +1,114 @@
+<h1>LetsMIAM</h1>
+
+
+<nav class="navbar navbar-expand-lg navbar-light sticky-top bg-light">
+  <div class="container-fluid container-xxl">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+        <a class="nav-link" href="#best-score">Meilleurs Avis</a>
+        <a class="nav-link" href="#discover">A Découvrir</a>
+        <a class="nav-link" href="#selection">Sélection</a>
+      </div>
+    </div>
+    <form class="d-flex">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+  </div>
+  </div>
+</nav>
+
+<div class="container-xxl">
+  <a class="anchor" id="best-score"></a>
+  <h4>Meilleurs Notes</h4>
+
+  <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
+    <% @restaurants.each do |restaurant| %>
+      <div class="col">
+        <div class="card h-100">
+          <a href="/restaurants/<%= restaurant.id %>">
+            <% if restaurant.card_photo.representable? %>
+              <%= image_tag(restaurant.card_photo.representation(resize_to_limit: [500, 500]), class: "card-img-top") %>
+            <% end %>
+          </a>
+          <div class="card-body">
+            <h5 class="card-title"><%= restaurant.name %></h5>
+            <p class="card-text"><%= restaurant.description %></p>
+
+            <% if !restaurant.score.nil? %>
+              <%= convert_score_to_star restaurant.score %>
+            <% else %>
+              <% 5.times do  %>
+                <i class="bi bi-star gold"></i>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <a class="anchor" id="selection"></a>
+  <h4>Sélections</h4>
+
+  <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
+    <% @restaurants.each do |restaurant| %>
+      <div class="col">
+        <div class="card h-100">
+          <a href="/restaurants/<%= restaurant.id %>">
+            <% if restaurant.card_photo.representable? %>
+              <%= image_tag(restaurant.card_photo.representation(resize_to_limit: [500, 500]), class: "card-img-top") %>
+            <% end %>
+          </a>
+          <div class="card-body">
+            <h5 class="card-title"><%= restaurant.name %></h5>
+            <p class="card-text"><%= restaurant.description %></p>
+
+            <% if !restaurant.score.nil? %>
+              <%= convert_score_to_star restaurant.score %>
+            <% else %>
+              <% 5.times do  %>
+                <i class="bi bi-star gold"></i>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <a class="anchor" id="discover"></a>
+  <h4>Découvrir</h4>
+
+  <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
+    <% @restaurants.each do |restaurant| %>
+      <div class="col">
+        <div class="card h-100">
+          <a href="/restaurants/<%= restaurant.id %>">
+            <% if restaurant.card_photo.representable? %>
+              <%= image_tag(restaurant.card_photo.representation(resize_to_limit: [500, 500]), class: "card-img-top") %>
+            <% end %>
+          </a>
+          <div class="card-body">
+            <h5 class="card-title"><%= restaurant.name %></h5>
+            <p class="card-text"><%= restaurant.description %></p>
+            <p class="card-text">
+            <% if !restaurant.score.nil? %>
+                <%= convert_score_to_star restaurant.score %> <%= restaurant.score.to_f/2 %> ( <%= restaurant.association_user_restaurants.length %> avis )
+            <% else %>
+              <% 5.times do  %>
+                <i class="bi bi-star gold"></i>
+              <% end %>
+            <% end %>
+            </p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+

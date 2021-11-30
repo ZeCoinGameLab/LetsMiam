@@ -1,0 +1,35 @@
+// inside app/javascript/packs/application.scss
+
+// Just a quick ugly style to see if our CSS works
+
+// Import Bootstrap v5
+@import "bootstrap";
+
+
+@include media-breakpoint-up(md) {
+  .card-img-top {
+    height: 12vw;
+  }
+}
+
+@include media-breakpoint-up(xxl) {
+  .card-img-top {
+    height: 10vw;
+  }
+}
+
+.gold {
+  color: gold;
+}
+
+.card-img-top {
+  width: 100%;
+  object-fit: cover;
+}
+
+a.anchor {
+  display: block;
+  position: relative;
+  top: -56px;
+  visibility: hidden;
+}

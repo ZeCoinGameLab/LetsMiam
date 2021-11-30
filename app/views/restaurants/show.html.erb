@@ -1,0 +1,28 @@
+<h1>Restaurants</h1>
+
+<ul>
+  <%= @restaurant.menus.each do |menu| %>
+  <li>
+    <%= menu.name %> ... <%= menu.price %>
+  </li>
+  <li>
+    Menu details :
+      <%= menu.dishes.each do |dish| %>
+      <ul>
+        <li>
+          <%= dish.name %>
+        </li>
+      </ul>
+      <% end %>
+  </li>
+  <% end %>
+  <%= form_with model: @restaurant do |form| %>
+    <%= form.label :score %>
+    <%= form.text_field :score %>
+
+    <%= form.label :card_photo %>
+    <%= form.file_field :card_photo %>
+
+    <%= form.submit %>
+  <% end %>
+</ul>
