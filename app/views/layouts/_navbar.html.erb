@@ -1,0 +1,19 @@
+<nav class="navbar navbar-expand-lg navbar-light sticky-top bg-light">
+  <div class="container-fluid container-xxl">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link <% if actual_page == 1 %>active<% end %>" <% if actual_page == 1 %>aria-current="page"<% end %> href="<%= url_for(action: 'index', controller: 'homepage') %>">Accueil</a>
+        <a class="nav-link <% if actual_page == 2 %>active<% end %>" <% if actual_page == 2 %>aria-current="page"<% end %> href="<%= url_for(action: 'best_score', controller: 'restaurants') %>">Meilleures Notes</a>
+        <a class="nav-link <% if actual_page == 3 %>active<% end %>" <% if actual_page == 3 %>aria-current="page"<% end %> href="<%= url_for(action: 'discover', controller: 'restaurants') %>">A Découvrir</a>
+        <a class="nav-link <% if actual_page == 4 %>active<% end %>" <% if actual_page == 4 %>aria-current="page"<% end %> href="<%= url_for(action: 'selections', controller: 'restaurants') %>">Sélection</a>
+      </div>
+    </div>
+    <form class="d-flex">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+  </div>
+</nav>

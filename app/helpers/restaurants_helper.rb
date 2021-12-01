@@ -1,5 +1,7 @@
 module RestaurantsHelper
   def convert_score_to_star(score)
+    return if score.nil?
+
     content = ''
     (score.to_f / 2).truncate.times do
       content += '<i class="bi bi-star-fill gold"></i> '

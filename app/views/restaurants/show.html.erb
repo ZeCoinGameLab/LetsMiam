@@ -1,28 +1,69 @@
-<h1>Restaurants</h1>
+<div class="container-fluid h-130">
+  <h1 class="d-none">LetsMIAM</h1>
+  <%= image_tag("logo.png", width: 400, class: "mx-auto d-block pt-5px") %>
+</div>
 
-<ul>
-  <%= @restaurant.menus.each do |menu| %>
-  <li>
-    <%= menu.name %> ... <%= menu.price %>
-  </li>
-  <li>
-    Menu details :
-      <%= menu.dishes.each do |dish| %>
-      <ul>
-        <li>
-          <%= dish.name %>
+<%= render 'layouts/navbar', actual_page: nil %>
+
+<div class="container-xxl">
+  <h2><%= @restaurant.name %></h2>
+
+  <p><%= @restaurant.description %></p>
+
+  <% unless @restaurant.menus.nil? %>
+    <h3>Menus</h3>
+    <div class="row row-cols-1 row-cols-md-2">
+      <% @restaurant.menus.each do |menu| %>
+        <div class="px-2 col mt-3">
+          <ul class="list-group">
+            <li class="list-group-item">
+              <h4 class="d-inline-block"><%= menu.name %> ...</h4> <p class="mb-0 float-end d-inline-block"><%= menu.price %> €</p>
+              <% menu.dishes.each do |dish| %>
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <%= dish.name %>
+                  </li>
+                </ul>
+              <% end %>
+            </li>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <h3>La carte</h3>
+
+  <% @restaurant.dish_categories.each do |dish_category| %>
+    <h2><%= dish_category %></h2>
+    <div class="px-2 col mt-3">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <h4 class="d-inline-block"><%= menu.name %> ...</h4> <p class="mb-0 float-end d-inline-block"><%= menu.price %> €</p>
+          <% menu.dishes.each do |dish| %>
+            <ul class="list-group">
+              <li class="list-group-item">
+                <%= dish.name %>
+              </li>
+            </ul>
+          <% end %>
         </li>
       </ul>
+    </div>
+  <% end %>
+
+      <%= form_with model: @restaurant do |form| %>
+        <%= form.label :score %>
+        <%= form.text_field :score %>
+        <%= form.label :card_photo %>
+        <%= form.file_field :card_photo %>
+        <%= form.submit %>
       <% end %>
-  </li>
-  <% end %>
-  <%= form_with model: @restaurant do |form| %>
-    <%= form.label :score %>
-    <%= form.text_field :score %>
 
-    <%= form.label :card_photo %>
-    <%= form.file_field :card_photo %>
+</div>
 
-    <%= form.submit %>
-  <% end %>
-</ul>
+
+
+
+
+

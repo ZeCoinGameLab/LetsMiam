@@ -1,0 +1,6 @@
+<div class="container-xxl">
+  <a class="anchor" id="best-score"></a>
+  <h2 class="mt-3 mb-3 d-inline-block">Meilleures Notes</h2>
+  <% if defined?(from_home) %>   <%= link_to("(Tout voir ...)", restaurants_best_score_path, method: 'get', class: 'homepage-link d-inline-block') %><%end %>
+  <%= render 'restaurants/cards', restaurants: restaurants %>
+</div>

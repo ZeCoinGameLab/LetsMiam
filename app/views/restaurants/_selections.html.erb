@@ -1,0 +1,6 @@
+<div class="container-xxl">
+  <a class="anchor" id="selections"></a>
+  <h2 class="mt-3 mb-3 d-inline-block">Sélection</h2>
+  <% if defined?(from_home) %>   <%= link_to("(Tout voir ...)", restaurants_selections_path, method: 'get', class: 'homepage-link d-inline-block') %><%end %>
+  <%= render 'restaurants/cards', restaurants: restaurants %>
+</div>

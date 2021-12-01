@@ -3,8 +3,7 @@
 // Just a quick ugly style to see if our CSS works
 
 // Import Bootstrap v5
-@import "bootstrap";
-
+@import "~bootstrap/scss/bootstrap.scss";
 
 @include media-breakpoint-up(md) {
   .card-img-top {
@@ -16,6 +15,33 @@
   .card-img-top {
     height: 10vw;
   }
+}
+
+.homepage-link{
+  text-decoration: none;
+  color: #7db264;
+}
+
+.homepage-link:hover{
+  text-decoration: none;
+  color: #448431;
+}
+
+.card{
+  transition: all 0.2s;
+}
+
+.transform-scale{
+  transform-origin: 50% 50%;
+  transform: scale(1.05);
+}
+
+.pt-5px{
+  padding-top: 5px;
+}
+
+.h-130{
+  height: 130px;
 }
 
 .gold {
