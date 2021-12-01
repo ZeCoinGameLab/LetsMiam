@@ -1,0 +1,19 @@
+<div class="container-xxl">
+  <a class="anchor" id="categories"></a>
+  <h2 class="mt-3 mb-3 d-inline-block">Catégories</h2>
+  <div class="row row-cols-3 row-cols-md-6 row-cols-lg-6 g-4">
+    <% food_tags.each do |food_tag| %>
+      <div class="col">
+        <div class="card h-100">
+          <% if food_tag.photo.representable? %>
+            <%= link_to image_tag(restaurants_), food_tag.photo.representation(resize_to_limit: [500, 500]), class: "card-img" %>
+          <% end %>
+          <div class="card-img-overlay">
+            <h5 class="card-title"><%= food_tag.name %></h5>
+          </div>
+
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
