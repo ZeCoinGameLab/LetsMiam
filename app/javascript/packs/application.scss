@@ -5,15 +5,39 @@
 // Import Bootstrap v5
 @import "~bootstrap/scss/bootstrap.scss";
 
-@include media-breakpoint-up(md) {
-  .card-img-top {
+@include media-breakpoint-up(xs) {
+  .card-foodtag {
+    height: 18vw;
+  }
+  .card-rest {
     height: 12vw;
   }
 }
 
+@include media-breakpoint-up(sm) {
+  .card-rest {
+    height: 18vw;
+  }
+  .card-foodtag {
+    height: 12vw;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .card-rest {
+    height: 12vw;
+  }
+  .card-foodtag {
+    height: 6vw;
+  }
+}
+
 @include media-breakpoint-up(xxl) {
-  .card-img-top {
+  .card-rest {
     height: 10vw;
+  }
+  .card-foodtag {
+    height: 6vw;
   }
 }
 

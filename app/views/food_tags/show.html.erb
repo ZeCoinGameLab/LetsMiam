@@ -1,0 +1,7 @@
+<%= form_with model: @food_tag do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+  <%= form.label :photo %>
+  <%= form.file_field :photo %>
+  <%= form.submit %>
+<% end %>

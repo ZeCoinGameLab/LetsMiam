@@ -4,7 +4,7 @@
       <div class="card h-100">
         <a href="/restaurants/<%= restaurant.id %>">
           <% if restaurant.card_photo.representable? %>
-            <%= image_tag(restaurant.card_photo.representation(resize_to_limit: [500, 500]), class: "card-img-top") %>
+            <%= image_tag(restaurant.card_photo.representation(resize_to_limit: [500, 500]), class: "card-img-top card-rest") %>
           <% end %>
         </a>
         <div class="card-body">

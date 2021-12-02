@@ -11,8 +11,12 @@ $(".card").each(
     function() {
         $( this ).removeClass('transform-scale').removeClass('shadow');
     }
-).hover(
+).mouseenter(
     function() {
-        $( this ).toggleClass('transform-scale').toggleClass('shadow');
+        $( this ).addClass('transform-scale').addClass('shadow');
+    }
+).mouseleave(
+    function() {
+        $( this ).removeClass('transform-scale').removeClass('shadow');
     }
 )

@@ -20,6 +20,12 @@ class RestaurantsController < ApplicationController
     end
   end
 
+  def food_tag
+    @restaurants = Restaurant.joins(:association_food_tag_restaurants).where(association_food_tag_restaurants: { food_tag_id: params[:id] })
+    print(@restaurants.inspect)
+    @food_tag = FoodTag.find(params[:id])
+  end
+
   def best_score
     @restaurants = Restaurant.where.not(score: nil).order(score: :desc).take(10)
   end
@@ -37,12 +43,5 @@ class RestaurantsController < ApplicationController
   def restaurant_params
     params.require(:restaurant).permit(:name, :description, :score, :card_photo)
   end
-
-    # def upload
-    #   uploaded_file = params[:picture]
-    #   File.open(Rails.root.join('public', 'uploads', uploaded_file.original_filename), 'wb') do |file|
-    #     file.write(uploaded_file.read)
-    #   end
-    # end
 
 end

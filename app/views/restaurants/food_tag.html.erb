@@ -1,0 +1,11 @@
+<div class="container-fluid">
+  <div class="container-fluid h-130">
+    <h1 class="d-none">LetsMIAM</h1>
+    <%= image_tag("logo.png", width: 400, class: "mx-auto d-block pt-5px") %>
+  </div>
+
+  <%= render 'layouts/navbar', actual_page: nil %>
+
+  <%= render 'restaurants/food_tag', restaurants: @restaurants, food_tag: @food_tag %>
+</div>
+<%= javascript_pack_tag 'restaurant_index.js' %>
