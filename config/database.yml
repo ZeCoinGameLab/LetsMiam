@@ -29,21 +29,21 @@ development:
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user running Rails.
-#  username: postgres
-  username: <%= ENV['LETSMIAM_DEVELOPMENT_DATABASE_USER'] %>
+  username: postgres
+#  username: <%#= ENV['LETSMIAM_DEVELOPMENT_DATABASE_USER'] %>
   # The password associated with the postgres role (username).
   password: <%= ENV['LETSMIAM_DEVELOPMENT_DATABASE_PASSWORD'] %>
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
   # domain sockets, so uncomment these lines.
-  host: <%= ENV['LETSMIAM_DEVELOPMENT_DATABASE_HOST'] %>
-#  host: winhost
+#  host: <%#= ENV['LETSMIAM_DEVELOPMENT_DATABASE_HOST'] %>
+  host: winhost
 
   # The TCP port the server listens on. Defaults to 5432.
   # If your server runs on a different port number, change accordingly.
-  port: <%= ENV['LETSMIAM_DEVELOPMENT_DATABASE_PORT'] %>
-#  port: 5432
+#  port: <%#= ENV['LETSMIAM_DEVELOPMENT_DATABASE_PORT'] %>
+  port: 5432
 
   # Schema search path. The server defaults to $user,public
   #schema_search_path: myapp,sharedapp,public
