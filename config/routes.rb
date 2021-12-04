@@ -12,12 +12,14 @@ Rails.application.routes.draw do
   get 'restaurants/food_tag/:id', to: 'restaurants#food_tag'
   get 'restaurants/:id/flag', to: 'restaurants#flag'
   get 'restaurants/:id/removeflag', to: 'restaurants#removeflag'
+  get 'groups/:id/quit_group', to: 'groups#quit_group', as: 'quit_group'
 
+  delete 'invitations/:id', to: 'invitations#destroy', as: 'invitation_destroy'
 
   resources :restaurants, only: %i[index show update]
   resources :food_tags, only: %i[show update]
-  resources :groups, only: [:new, :update]
-  resources :invitations, only: [:new, :show, :update]
+  resources :groups, only: %i[new update]
+  resources :invitations, only: %i[new show update]
   resources :association_user_invits, only: [:update]
   resources :association_invit_restaurants, only: [:new]
 

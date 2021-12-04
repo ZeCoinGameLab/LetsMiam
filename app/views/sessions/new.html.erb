@@ -1,14 +1,33 @@
-<h1>Identification</h1>
-<%= form_with url: sign_in_path do |f| %>
-  <p>
-    <%= f.label 'Surnom :' %><br>
-    <%= f.text_field :nickname, id: 'nickname' %>
-  </p>
-  <p>
-    <%= f.label 'Mot de passe :'%><br>
-    <%= f.password_field :password, id: 'password' %>
-  </p>
-  <p>
-    <%= f.submit 'Connection' %>
-  </p>
-<% end %>
+<%= render 'layouts/navbar', actual_page: nil %>
+
+<div class="container-xxl">
+  <h1>Identification</h1>
+  <div class="row row-cols-md-2">
+    <div class="col">
+
+      <% if !@user.blank? && @user.errors.any? %>
+        <div id="error_explanation">
+          <ul>
+            <% @user.errors.each do |error| %>
+              <li class="alert alert-danger"><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= form_with url: sign_in_path do |f| %>
+        <p>
+          <%= f.label 'Surnom :', class: 'form-label' %><br>
+          <%= f.text_field :nickname, id: 'nickname', class: 'form-control' %>
+        </p>
+        <p>
+          <%= f.label 'Mot de passe :', class: 'form-label'%><br>
+          <%= f.password_field :password, id: 'password', class: 'form-control' %>
+        </p>
+        <p>
+          <%= f.submit 'Connection', class: 'btn btn-success' %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -7,8 +7,15 @@ class Invitation < ApplicationRecord
   has_many :restaurants, :through => :association_invit_restaurants
   accepts_nested_attributes_for :association_invit_restaurants, allow_destroy: true
 
-  validate :invit_restaurants_count
   belongs_to :group
+  
+  validate :invit_restaurants_count
+  validates :name, presence: true, length: { in: 3..24 }
+
+  before_destroy do |record|
+    AssociationUserInvit.where(invitation_id: record.id).destroy_all
+    AssociationInvitRestaurant.where(invitation_id: record.id).destroy_all
+  end
 
   private
 

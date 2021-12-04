@@ -1,27 +1,36 @@
-<div class="container-fluid">
-  <div class="container-fluid h-130">
-    <h1 class="d-none">LetsMIAM</h1>
-    <%= image_tag("logo.png", width: 400, class: "mx-auto d-block pt-5px") %>
-  </div>
+<%= render 'layouts/navbar', actual_page: 1 %>
 
-  <%= render 'layouts/navbar', actual_page: 1 %>
+<div class="container-xxl">
 
-  <div class="container-xxl">
+  <h2 class="mt-3 mb-3">Invitation</h2>
 
-    <h2>Invitation</h2>
+  <div class="row row-cols-1 row-cols-md-4 g-4">
+    <div class="col">
 
-    <div class="row row-cols-1 row-cols-md-4 row-cols-lg-4 g-4">
-      <div class="col">
-        <%= form_with model: @invitation, url: new_invitation_path(@invitation), html: { method: :put } do |form| %>
-          <%= form.text_field :name, class: "form-control", id: "from_control_name" %>
-          <%= form.label :name, class: "form-label", for: "from_control_name" %>
-          <%= form.select(:group_id, options_from_collection_for_select(Group.all, 'id', 'name'), {},{ :class => 'form-select'}) %>
-          <%= form.submit "Envoyer" %>
-        <% end %>
-      </div>
-      <%= render 'restaurants/cards', restaurants: @restaurants %>
+      <% if @invitation.errors.any? %>
+        <div id="error_explanation">
+          <ul>
+            <% @invitation.errors.each do |error| %>
+              <li class="alert alert-danger"><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= form_with model: @invitation, url: new_invitation_path(@invitation), html: { method: :put } do |form| %>
+        <%= form.label 'Nom : ', class: "mt-3 form-label", for: "from_control_name" %>
+        <%= form.text_field :name, class: "form-control", id: "from_control_name" %>
+        <%= form.label 'Groupe : ', class: "mt-3 form-label" %>
+        <%= form.select(:group_id, options_from_collection_for_select(@groups, 'id', 'name'), {},{ :class => 'form-select'}) %>
+        <% if !@restaurants.blank? %><%= form.submit "Envoyer", class: 'mt-5 btn btn-success' %><% end %>
+      <% end %>
     </div>
+    <% if !@restaurants.blank? %>
+      <%= render 'restaurants/cards', restaurants: @restaurants %>
+    <% else %>
+      <div class="col">
+        <p>Ici seront placés les restaurants sélectionnés depuis leurs pages de détails ou depuis l'accueil</p>
+      </div>
+    <% end %>
   </div>
-
-
 </div>

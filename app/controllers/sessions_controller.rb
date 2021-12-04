@@ -6,9 +6,9 @@ class SessionsController < ApplicationController
     user = User.find_by(nickname: params[:nickname])
     if user.present? && user.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to root_path, notice: 'Connection reussi'
+      redirect_to root_path, notice: 'Connecté(e).'
     else
-      flash.now[:alert] = 'Surnom ou mot de passe incorrect'
+      flash.now[:alert] = 'Combinaison surnom/mot de passe inconnue.'
       render :new
     end
   end

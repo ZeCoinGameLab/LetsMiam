@@ -1,12 +1,5 @@
-<div class="container-fluid">
-  <div class="container-fluid h-130">
-    <h1 class="d-none">LetsMIAM</h1>
-    <%= image_tag("logo.png", width: 400, class: "mx-auto d-block pt-5px") %>
-  </div>
+<%= render 'layouts/navbar', actual_page: 2 %>
 
-  <%= render 'layouts/navbar', actual_page: 2 %>
-
-  <%= render 'restaurants/best_score', restaurants: @restaurants %>
-</div>
+<%= render 'restaurants/best_score', restaurants: @restaurants %>
 
 <%= javascript_pack_tag 'restaurant_index.js' %>

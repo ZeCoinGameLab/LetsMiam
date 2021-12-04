@@ -40,15 +40,25 @@ class RestaurantsController < ApplicationController
 
   def flag
     @restaurant = Restaurant.find(params[:id])
-    session[:restaurants_id] << @restaurant.id if !@restaurant.blank? &&
-                                                  (session[:restaurants_id] ||= []).length < 3 &&
-                                                  !session[:restaurants_id].include?(params[:id])
+    if !@restaurant.blank? &&
+       (session[:restaurants_id] ||= []).length < 3 &&
+       !session[:restaurants_id].include?(params[:id])
+      session[:restaurants_id] << @restaurant.id
+      flash[:notice] = 'Restaurant ajouté.'
+    else
+      flash[:notice] = 'Ajout impossible. Vous avez déjà ajouté 3 restaurants à l\'invitation.'
+    end
     redirect_to request.referer
   end
 
   def removeflag
     @restaurant = Restaurant.find(params[:id])
-    session[:restaurants_id] -= [params[:id].to_i] if session[:restaurants_id].include?(@restaurant.id)
+    if session[:restaurants_id].include?(@restaurant.id)
+      session[:restaurants_id] -= [params[:id].to_i]
+      flash[:notice] = 'Restaurant retiré de votre invitation.'
+    else
+      flash[:notice] = 'Retrait impossible. Restaurant non trouvé dans votre invitation.'
+    end
     redirect_to request.referer
   end
 

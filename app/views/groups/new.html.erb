@@ -1,0 +1,33 @@
+<%= render 'layouts/navbar', actual_page: 1 %>
+
+<div class="container-xxl">
+  <a class="anchor" id="my-groups"></a>
+  <h2 class="mt-3 mb-3 d-inline-block">Nouveau groupe</h2>
+  <div class="row row-cols-1 g-4">
+    <div class="col">
+
+      <% if @group.errors.any? %>
+        <div id="error_explanation">
+          <ul>
+            <% @group.errors.each do |error| %>
+              <li class="alert alert-danger"><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= form_with model: @group, url: new_group_path(@group), html: { method: :put } do |form| %>
+        <%= form.label 'Nom : ', class: 'form-label' %>
+        <%= form.text_field :name, class: 'form-control' %>
+        <%= form.label 'Selectionnez vos amis : ', class: 'mt-3 form-label' %>
+        <%= form.collection_check_boxes(:users, @users, :id, :nickname ) do |b| %>
+          <div class="form-check">
+            <%= b.check_box class: 'form-check-input' %>
+            <%= b.label class: "form-check-label" %>
+          </div>
+        <% end %>
+        <%= form.submit 'Créer', class: 'mt-3 btn btn-success' %>
+      <% end %>
+    </div>
+  </div>
+</div>

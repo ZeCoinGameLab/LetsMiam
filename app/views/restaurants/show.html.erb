@@ -1,68 +1,62 @@
-<div class="container-fluid">
-  <div class="container-fluid h-130">
-    <h1 class="d-none">LetsMIAM</h1>
-    <%= image_tag("logo.png", width: 400, class: "mx-auto d-block pt-5px") %>
-  </div>
+<%= render 'layouts/navbar', actual_page: nil %>
 
-  <%= render 'layouts/navbar', actual_page: nil %>
+<div class="container-xxl">
+  <div class="row row-cols-1">
+    <div class="col">
+      <h2 class="d-inline-block mt-3"><%= @restaurant.name %></h2>
+      <p class="d-inline-block">   <%= convert_score_to_star @restaurant.score %> <%= @restaurant.score.to_f/2 %> ( <%= @restaurant.association_user_restaurants.length %> avis )</p>
+      <p><%= @restaurant.description %></p>
 
-  <div class="container-xxl">
-    <div class="row row-cols-1">
-      <div class="col">
-        <h2 class="d-inline-block mt-3"><%= @restaurant.name %></h2>
-        <p class="d-inline-block">   <%= convert_score_to_star @restaurant.score %> <%= @restaurant.score.to_f/2 %> ( <%= @restaurant.association_user_restaurants.length %> avis )</p>
-        <p><%= @restaurant.description %></p>
-
-        <% unless @restaurant.menus.nil? %>
-          <h3>Menus</h3>
-          <div class="container-fluid">
-            <div class="row row-cols-1 row-cols-md-2">
-            <% @restaurant.menus.each do |menu| %>
-              <div class="px-2 col mt-3">
-                <h4 class="d-inline-block"><%= menu.name %> ...</h4> <p class="mb-0 fw-bold float-end d-inline-block"><%= menu.price %> €</p>
-                <ul class="list-group">
-                <% menu.dishes.each_with_index do |dish, index| %>
-                    <li class="list-group-item <% if index.even? %>bg-light<% end %>">
-                      <p class="fw-bold d-inline-block"><%= dish.name %></p>
-                      <p><%= dish.details %></p>
-                    </li>
-                <% end %>
-                </ul>
-              </div>
-            <% end %>
-            </div>
-          </div>
-        <% end %>
-
-        <h3 class="pt-3">La carte</h3>
+      <% unless @restaurant.menus.nil? %>
+        <h3>Menus</h3>
         <div class="container-fluid">
-          <% @restaurant.dish_categories.each do |dish_category| %>
-            <% unless dish_category.dishes.empty? %>
-              <h4 class="pt-3"><%= dish_category.name %></h4>
-              <div class="row row-cols-1 row-cols-md-2">
-                <ul class="list-group">
-                  <% dish_category.dishes.each_with_index do |dish, index| %>
-                    <li class="list-group-item <% if index.even? %>bg-light<% end %>">
-                      <p class="fw-bold d-inline-block"><%= dish.name %></p> <p class="mb-0 fw-bold float-end d-inline-block"><%= dish.price %> €</p>
-                      <p><%= dish.details %></p>
-                    </li>
-                  <% end %>
-                </ul>
-              </div>
-            <% end %>
+          <div class="row row-cols-1 row-cols-md-2">
+          <% @restaurant.menus.each do |menu| %>
+            <div class="px-2 col mt-3">
+              <h4 class="d-inline-block"><%= menu.name %> ...</h4> <p class="mb-0 fw-bold float-end d-inline-block"><%= menu.price %> €</p>
+              <ul class="list-group">
+              <% menu.dishes.each_with_index do |dish, index| %>
+                  <li class="list-group-item <% if index.even? %>bg-light<% end %>">
+                    <p class="fw-bold d-inline-block"><%= dish.name %></p>
+                    <p><%= dish.details %></p>
+                  </li>
+              <% end %>
+              </ul>
+            </div>
           <% end %>
+          </div>
         </div>
+      <% end %>
+
+      <h3 class="pt-3">La carte</h3>
+      <div class="container-fluid">
+        <% @restaurant.dish_categories.each do |dish_category| %>
+          <% unless dish_category.dishes.empty? %>
+            <h4 class="pt-3"><%= dish_category.name %></h4>
+            <div class="row row-cols-1 row-cols-md-2">
+              <ul class="list-group">
+                <% dish_category.dishes.each_with_index do |dish, index| %>
+                  <li class="list-group-item <% if index.even? %>bg-light<% end %>">
+                    <p class="fw-bold d-inline-block"><%= dish.name %></p> <p class="mb-0 fw-bold float-end d-inline-block"><%= dish.price %> €</p>
+                    <p><%= dish.details %></p>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+        <% end %>
       </div>
     </div>
-    <%= form_with model: @restaurant do |form| %>
-      <%= form.label :score %>
-      <%= form.text_field :score %>
-      <%= form.label :card_photo %>
-      <%= form.file_field :card_photo %>
-      <%= form.submit %>
-    <% end %>
   </div>
+  <%= form_with model: @restaurant do |form| %>
+    <%= form.label :score %>
+    <%= form.text_field :score %>
+    <%= form.label :card_photo %>
+    <%= form.file_field :card_photo %>
+    <%= form.submit %>
+  <% end %>
 </div>
+
 
 
 
