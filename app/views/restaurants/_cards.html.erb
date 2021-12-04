@@ -1,19 +1,22 @@
-<div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
-  <% restaurants.each do |restaurant| %>
-    <div class="col">
-      <div class="card h-100">
-        <a href="/restaurants/<%= restaurant.id %>">
-          <% if restaurant.card_photo.representable? %>
-            <%= image_tag(restaurant.card_photo.representation(resize_to_limit: [500, 500]), class: "card-img-top card-rest") %>
-          <% end %>
-        </a>
-        <div class="card-body">
-          <h5 class="card-title"><%= restaurant.name %></h5>
-          <p class="card-text text-truncate"><%= restaurant.description %></p>
-          <p class="card-text"><%= convert_score_to_star restaurant.score %> <%= restaurant.score.to_f/2 %> ( <%= restaurant.association_user_restaurants.length %> avis )</p>
-          <!-- <a tabindex="0" class="" role="button" data-bs-toggle="popover" data-bs-trigger="focus" title="Note de Restaurant" data-bs-content="Ce restaurant n'a pas encore d'avis ou de note. Voulez-vous lui en donner?">( <%#= restaurant.association_user_restaurants.length %> avis )</a>-->
-        </div>
+<% restaurants.each do |restaurant| %>
+  <div class="col">
+    <div class="card h-100">
+      <a href="/restaurants/<%= restaurant.id %>">
+        <% if restaurant.card_photo.representable? %>
+          <%= image_tag(restaurant.card_photo.representation(resize_to_limit: [500, 500]), class: "card-img-top card-rest") %>
+        <% end %>
+      </a>
+      <div class="card-body">
+        <h5 class="card-title"><%= restaurant.name %></h5>
+        <p class="card-text text-truncate"><%= restaurant.description %></p>
+        <% if !session[:restaurants_id].include?(restaurant.id) %>
+          <%= button_to 'Ajouter à l\'invitation', '/restaurants/'+restaurant.id.to_s+'/flag', data: {id: restaurant.id}, method: 'get', class: "btn btn-outline-primary" %>
+        <% else %>
+          <%= button_to 'Enlever de l\'invitation', '/restaurants/'+restaurant.id.to_s+'/removeflag', data: {id: restaurant.id}, method: 'get', class: "hidden btn btn-primary" %>
+        <% end %>
+        <p class="card-text"><%= convert_score_to_star restaurant.score %> <%= restaurant.score.to_f/2 %> ( <%= restaurant.association_user_restaurants.length %> avis )</p>
+        <!-- <a tabindex="0" class="" role="button" data-bs-toggle="popover" data-bs-trigger="focus" title="Note de Restaurant" data-bs-content="Ce restaurant n'a pas encore d'avis ou de note. Voulez-vous lui en donner?">( <%#= restaurant.association_user_restaurants.length %> avis )</a>-->
       </div>
     </div>
-  <% end %>
-</div>
+  </div>
+<% end %>

@@ -1,0 +1,27 @@
+<div class="container-fluid">
+  <div class="container-fluid h-130">
+    <h1 class="d-none">LetsMIAM</h1>
+    <%= image_tag("logo.png", width: 400, class: "mx-auto d-block pt-5px") %>
+  </div>
+
+  <%= render 'layouts/navbar', actual_page: 1 %>
+
+  <div class="container-xxl">
+
+    <h2>Invitation</h2>
+
+    <div class="row row-cols-1 row-cols-md-4 row-cols-lg-4 g-4">
+      <div class="col">
+        <%= form_with model: @invitation, url: new_invitation_path(@invitation), html: { method: :put } do |form| %>
+          <%= form.text_field :name, class: "form-control", id: "from_control_name" %>
+          <%= form.label :name, class: "form-label", for: "from_control_name" %>
+          <%= form.select(:group_id, options_from_collection_for_select(Group.all, 'id', 'name'), {},{ :class => 'form-select'}) %>
+          <%= form.submit "Envoyer" %>
+        <% end %>
+      </div>
+      <%= render 'restaurants/cards', restaurants: @restaurants %>
+    </div>
+  </div>
+
+
+</div>

@@ -20,3 +20,4 @@ $(".card").each(
         $( this ).removeClass('transform-scale').removeClass('shadow');
     }
 )
+

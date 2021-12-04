@@ -1,6 +1,6 @@
 class AssociationUserInvitsController < ApplicationController
+  before_action :require_user_logged_in!
   def update
-
     @association_user_invit = AssociationUserInvit.find(params[:id])
     vote = 0
     association_user_invits_params[:vote].each do |index, byte|

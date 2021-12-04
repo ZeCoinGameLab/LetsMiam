@@ -1,4 +1,5 @@
 class RestaurantsController < ApplicationController
+  before_action :require_user_logged_in!, only: [:flag]
   def index
     @selection_rest = Restaurant.all.take(4)
     @best_rest = Restaurant.where.not(score: nil).order(score: :desc).take(4)
@@ -22,7 +23,6 @@ class RestaurantsController < ApplicationController
 
   def food_tag
     @restaurants = Restaurant.joins(:association_food_tag_restaurants).where(association_food_tag_restaurants: { food_tag_id: params[:id] })
-    print(@restaurants.inspect)
     @food_tag = FoodTag.find(params[:id])
   end
 
@@ -37,6 +37,21 @@ class RestaurantsController < ApplicationController
   def selections
     @restaurants = Restaurant.all.take(10)
   end
+
+  def flag
+    @restaurant = Restaurant.find(params[:id])
+    session[:restaurants_id] << @restaurant.id if !@restaurant.blank? &&
+                                                  (session[:restaurants_id] ||= []).length < 3 &&
+                                                  !session[:restaurants_id].include?(params[:id])
+    redirect_to request.referer
+  end
+
+  def removeflag
+    @restaurant = Restaurant.find(params[:id])
+    session[:restaurants_id] -= [params[:id].to_i] if session[:restaurants_id].include?(@restaurant.id)
+    redirect_to request.referer
+  end
+
 
   private
 

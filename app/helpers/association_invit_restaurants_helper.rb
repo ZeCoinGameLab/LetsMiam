@@ -1,0 +1,2 @@
+module AssociationInvitRestaurantsHelper
+end

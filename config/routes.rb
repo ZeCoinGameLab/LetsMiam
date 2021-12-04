@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get 'association_invit_restaurants/new'
   get 'users/show'
   get 'homepage/index'
   root to: 'homepage#index'
@@ -9,13 +10,17 @@ Rails.application.routes.draw do
   get 'restaurants/discover', to: 'restaurants#discover'
   get 'restaurants/selections', to: 'restaurants#selections'
   get 'restaurants/food_tag/:id', to: 'restaurants#food_tag'
+  get 'restaurants/:id/flag', to: 'restaurants#flag'
+  get 'restaurants/:id/removeflag', to: 'restaurants#removeflag'
+
 
   resources :restaurants, only: %i[index show update]
   resources :food_tags, only: %i[show update]
-  resources :groups, only: [:new, :update] do
-    resources :invitations, only: [:new, :show, :update]
-  end
+  resources :groups, only: [:new, :update]
+  resources :invitations, only: [:new, :show, :update]
   resources :association_user_invits, only: [:update]
+  resources :association_invit_restaurants, only: [:new]
+
   get 'sign_up', to: 'registrations#new'
   post 'sign_up', to: 'registrations#create'
   get 'sign_in', to: 'sessions#new'

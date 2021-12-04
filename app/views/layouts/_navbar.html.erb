@@ -11,9 +11,23 @@
         <a class="nav-link <% if actual_page == 4 %>active<% end %>" <% if actual_page == 4 %>aria-current="page"<% end %> href="<%= url_for(action: 'selections', controller: 'restaurants') %>">Sélection</a>
       </div>
     </div>
-    <form class="d-flex">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
+    <div class="d-flex">
+      <% if Current.user %>
+        <%= button_to 'Mon profil', my_profile_url, method: 'get', class: "btn btn-outline-success mr-5" %>
+        <%= button_to 'Se déconnecter', logout_path, method: :delete, class: "btn btn-outline-danger" %>
+      <% else %>
+        <%= link_to 'S\'enregistrer', sign_up_path, class: "link-dark link-success mr-5 pt-7" %>
+        <%= button_to 'Se connecter', sign_in_path, class: "btn btn-outline-success" %>
+      <% end %>
+    </div>
   </div>
 </nav>
+
+<div class="container-fluid container-xxl">
+  <% flash.each do |type, msg| %>
+<!--    TODO : Handle type with helper -->
+    <div class="alert alert-info">
+      <%= msg %>
+    </div>
+  <% end %>
+</div>

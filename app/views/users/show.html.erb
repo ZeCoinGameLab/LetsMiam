@@ -6,16 +6,6 @@
 
   <%= render 'layouts/navbar', actual_page: 1 %>
 
-  <% if Current.user %>
-    Logged in as: <%= Current.user.nickname %><br>
-    <%= link_to 'Edit Password', edit_password_path %>
-    <%= button_to 'Logout', logout_path, method: :delete %>
-  <% else %>
-    <%= link_to 'Sign Up', sign_up_path %>
-    or
-    <%= link_to 'Login', sign_in_path %>
-  <% end %>
-
   <div class="container-xxl">
     <a class="anchor" id="my-groups"></a>
     <h2 class="mt-3 mb-3 d-inline-block">Mes groupes</h2>
@@ -37,7 +27,7 @@
                   <% end %>
                 </ul>
               </div>
-              <%= link_to new_group_invitation_path(group_id: group.id), class: "btn btn-outline-info", role: "button" do %>
+              <%= link_to new_invitation_path, class: "btn btn-outline-info", role: "button" do %>
                 <i class="bi bi-calendar-plus text-dark text-decoration-none"></i>
               <% end %>
             </div>
@@ -63,7 +53,9 @@
               <div class="card-body">
                 <h3 class="card-title d-inline-block"><%= invitation.name %></h3>
                 <h3 class="card-title d-inline-block">... Groupe : <%= invitation.group.name %></h3>
-                <%= render 'restaurants/cards', restaurants: invitation.restaurants %>
+                <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+                  <%= render 'restaurants/cards_invit', restaurants: invitation.restaurants %>
+                </div>
                 <% invitation.association_user_invits.each_with_index do |user_invit, index_loop| %>
                   <% if Current.user == user_invit.user %>
                     <%= form_with model: user_invit, local: false, method: 'PATCH' do |form| %>
@@ -73,7 +65,7 @@
                             <fieldset id="association_user_invit[vote]['+<%= index.to_s %>+']'">
                               <div class="row row-cols-2 justify-content-center">
                                 <div class="col-auto form-check">
-                                  <% if user_invit.vote.to_s(2).reverse[index] == "1" %>
+                                  <% if !user_invit.vote.nil? && user_invit.vote.to_s(2).reverse[index] == "1" %>
                                     <%= form.radio_button :vote, '1', class: 'form-check-input vote-box', checked: 'checked', name: 'association_user_invit[vote]['+index.to_s+']' %>
                                   <% else %>
                                     <%= form.radio_button :vote, '1', class: 'form-check-input vote-box', name: 'association_user_invit[vote]['+index.to_s+']' %>
@@ -81,7 +73,7 @@
                                   <i class="form-check-label vote-box-label text-success bi bi-check2-circle"></i>
                                 </div>
                                 <div class="col-auto form-check">
-                                  <% if user_invit.vote.to_s(2).reverse[index] == "0" %>
+                                  <% if !user_invit.vote.nil? && user_invit.vote.to_s(2).reverse[index] == "0" %>
                                     <%= form.radio_button :vote, '0', class: 'form-check-input vote-box', checked: 'checked', name: 'association_user_invit[vote]['+index.to_s+']' %>
                                   <% else %>
                                     <%= form.radio_button :vote, '0', class: 'form-check-input vote-box', name: 'association_user_invit[vote]['+index.to_s+']' %>
@@ -101,7 +93,7 @@
                     <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
                       <% invitation.restaurants.length.times do |index| %>
                         <div class="text-center <% if index_loop.even? %>bg-light<% end %> col">
-                          <% if user_invit.vote.to_s(2).reverse[index] == "1" %>
+                          <% !user_invit.vote.nil? && if user_invit.vote.to_s(2).reverse[index] == "1" %>
                             <i class="form-check-label vote-box-label text-success bi bi-check2-circle"></i>
                           <% else %>
                             <i class="form-check-label vote-box-label fs-custom-1 text-danger bi bi-x-circle"></i>
