@@ -1,0 +1,14 @@
+<h1>Identification</h1>
+<%= form_with url: sign_in_path do |f| %>
+  <p>
+    <%= f.label 'Surnom :' %><br>
+    <%= f.text_field :nickname, id: 'nickname' %>
+  </p>
+  <p>
+    <%= f.label 'Mot de passe :'%><br>
+    <%= f.password_field :password, id: 'password' %>
+  </p>
+  <p>
+    <%= f.submit 'Connection' %>
+  </p>
+<% end %>

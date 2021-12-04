@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_30_132135) do
+ActiveRecord::Schema.define(version: 2021_12_03_213712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,34 @@ ActiveRecord::Schema.define(version: 2021_11_30_132135) do
     t.index ["restaurant_id"], name: "index_association_food_tag_restaurants_on_restaurant_id"
   end
 
+  create_table "association_invit_restaurants", force: :cascade do |t|
+    t.bigint "restaurant_id", null: false
+    t.bigint "invitation_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["invitation_id"], name: "index_association_invit_restaurants_on_invitation_id"
+    t.index ["restaurant_id"], name: "index_association_invit_restaurants_on_restaurant_id"
+  end
+
+  create_table "association_user_groups", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "group_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_association_user_groups_on_group_id"
+    t.index ["user_id"], name: "index_association_user_groups_on_user_id"
+  end
+
+  create_table "association_user_invits", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "invitation_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "vote"
+    t.index ["invitation_id"], name: "index_association_user_invits_on_invitation_id"
+    t.index ["user_id"], name: "index_association_user_invits_on_user_id"
+  end
+
   create_table "association_user_restaurants", id: false, force: :cascade do |t|
     t.integer "score"
     t.string "commentary", limit: 200
@@ -89,6 +117,21 @@ ActiveRecord::Schema.define(version: 2021_11_30_132135) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "groups", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "invitations", force: :cascade do |t|
+    t.string "name"
+    t.integer "status"
+    t.bigint "group_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_invitations_on_group_id"
+  end
+
   create_table "menus", force: :cascade do |t|
     t.string "name", limit: 16
     t.decimal "price", precision: 6, scale: 2
@@ -107,20 +150,28 @@ ActiveRecord::Schema.define(version: 2021_11_30_132135) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name", limit: 16
-    t.string "firstname", limit: 16
+    t.string "nickname", limit: 16
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "password_digest"
+    t.index ["nickname"], name: "index_users_on_nickname", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "association_food_tag_restaurants", "food_tags"
   add_foreign_key "association_food_tag_restaurants", "restaurants"
+  add_foreign_key "association_invit_restaurants", "invitations"
+  add_foreign_key "association_invit_restaurants", "restaurants"
+  add_foreign_key "association_user_groups", "groups"
+  add_foreign_key "association_user_groups", "users"
+  add_foreign_key "association_user_invits", "invitations"
+  add_foreign_key "association_user_invits", "users"
   add_foreign_key "association_user_restaurants", "restaurants"
   add_foreign_key "association_user_restaurants", "users"
   add_foreign_key "dish_categories", "restaurants"
   add_foreign_key "dishes", "dish_categories"
   add_foreign_key "dishes", "menus"
+  add_foreign_key "invitations", "groups"
   add_foreign_key "menus", "restaurants"
 end
