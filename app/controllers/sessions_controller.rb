@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
       redirect_to root_path, notice: 'Connecté(e).'
     else
       flash.now[:alert] = 'Combinaison surnom/mot de passe inconnue.'
-      render :new
+      redirect_to sign_in_path
     end
   end
 
