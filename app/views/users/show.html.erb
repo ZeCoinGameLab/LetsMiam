@@ -81,9 +81,9 @@
                     <% invitation.restaurants.length.times do |index| %>
                       <div class="text-center <% if index_loop.even? %>bg-white<% end %> col">
                         <% !user_invit.vote.nil? && if user_invit.vote.to_s(2).reverse[index] == "1" %>
-                          <i class="form-check-label vote-box-label text-success bi bi-check2-circle"></i>
+                          <i class="form-check-label vote-box-label text-success bi bi-check2-circle mr-5"></i>
                         <% else %>
-                          <i class="form-check-label vote-box-label fs-custom-1 text-danger bi bi-x-circle"></i>
+                          <i class="form-check-label vote-box-label fs-custom-1 text-danger bi bi-x-circle mr-5"></i>
                         <% end %>
                       </div>
                     <% end %>

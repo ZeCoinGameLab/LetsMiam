@@ -8,9 +8,9 @@ module UsersHelper
     content += generate_radio_input(vote, index, '1', form)
     content += '<i class="form-check-label vote-box-label text-success bi bi-check2-circle"></i>'
     content += '</div>'
-    content += '<div class="col-auto form-check">'
+    content += '<div class="col-auto form-check ml-35">'
     content += generate_radio_input(vote, index, '0', form)
-    content += '<i class="form-check-label vote-box-label fs-custom-1 text-danger bi bi-x-circle"></i>'
+    content += '<i class="form-check-label vote-box-label fs-custom-1 text-danger bi bi-x-circle ml-5"></i>'
     content += '</div>'
     content.html_safe
   end
