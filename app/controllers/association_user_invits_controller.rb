@@ -6,7 +6,7 @@ class AssociationUserInvitsController < ApplicationController
     association_user_invits_params[:vote].each do |index, byte|
       vote += byte.to_i * 2**index.to_i
     end
-    print(vote)
+
     @association_user_invit.update(vote: vote)
 
     respond_to do |format|

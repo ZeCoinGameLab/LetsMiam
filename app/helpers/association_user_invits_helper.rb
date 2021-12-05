@@ -1,2 +1,0 @@
-module AssociationUserInvitsHelper
-end
