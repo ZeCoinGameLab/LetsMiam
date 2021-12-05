@@ -13,14 +13,17 @@ class Invitation < ApplicationRecord
   validates :name, presence: true, length: { in: 3..24 }
 
   before_destroy do |record|
-    AssociationUserInvit.where(invitation_id: record.id).destroy_all
-    AssociationInvitRestaurant.where(invitation_id: record.id).destroy_all
+    record.association_invit_restaurants.destroy_all
+    record.association_user_invits.destroy_all
+    # AssociationUserInvit.where(invitation_id: record.id).destroy_all
+    # AssociationInvitRestaurant.where(invitation_id: record.id).destroy_all
   end
 
   private
 
   def invit_restaurants_count
     return if association_invit_restaurants.blank?
+
     errors.add('Too many restaurants') if association_invit_restaurants.size > 3
   end
 

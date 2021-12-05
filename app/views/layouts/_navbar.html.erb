@@ -13,7 +13,10 @@
     </div>
     <div class="d-flex">
       <% if Current.user %>
-        <%= button_to 'Mon profil', my_profile_url, method: 'get', class: "btn btn-outline-success mr-5" %>
+        <% if check_invitation_without_vote(Current.user.id) %>
+          <i class="notif-envelop bi bi-envelope-exclamation"></i>
+        <% end %>
+        <%= button_to 'Mes invitations', my_profile_url, method: 'get', class: "btn btn-outline-success mr-5" %>
         <%= button_to 'Se déconnecter', logout_path, method: :delete, class: "btn btn-outline-danger" %>
       <% else %>
         <%= link_to 'S\'enregistrer', sign_up_path, class: "link-dark link-success mr-5 pt-7" %>

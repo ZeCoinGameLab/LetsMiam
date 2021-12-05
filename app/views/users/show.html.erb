@@ -66,22 +66,7 @@
                         <div class="<% if index_loop.even? %>bg-white<% end %> col">
                           <fieldset id="association_user_invit[vote]['+<%= index.to_s %>+']'">
                             <div class="row row-cols-2 justify-content-center">
-                              <div class="col-auto form-check">
-                                <% if !user_invit.vote.nil? && user_invit.vote.to_s(2).reverse[index] == "1" %>
-                                  <%= form.radio_button :vote, '1', class: 'form-check-input vote-box', checked: 'checked', name: 'association_user_invit[vote]['+index.to_s+']' %>
-                                <% else %>
-                                  <%= form.radio_button :vote, '1', class: 'form-check-input vote-box', name: 'association_user_invit[vote]['+index.to_s+']' %>
-                                <% end %>
-                                <i class="form-check-label vote-box-label text-success bi bi-check2-circle"></i>
-                              </div>
-                              <div class="col-auto form-check">
-                                <% if !user_invit.vote.nil? && user_invit.vote.to_s(2).reverse[index] == "0" %>
-                                  <%= form.radio_button :vote, '0', class: 'form-check-input vote-box', checked: 'checked', name: 'association_user_invit[vote]['+index.to_s+']' %>
-                                <% else %>
-                                  <%= form.radio_button :vote, '0', class: 'form-check-input vote-box', name: 'association_user_invit[vote]['+index.to_s+']' %>
-                                <% end %>
-                                <i class="form-check-label vote-box-label fs-custom-1 text-danger bi bi-x-circle"></i>
-                              </div>
+                              <%= generator_radio_vote_structure(user_invit.vote, index, form) %>
                             </div>
                           </fieldset>
                         </div>

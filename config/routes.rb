@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   delete 'invitations/:id', to: 'invitations#destroy', as: 'invitation_destroy'
 
-  resources :restaurants, only: %i[index show update]
+  resources :restaurants, only: %i[index show update edit]
   resources :food_tags, only: %i[show update]
   resources :groups, only: %i[new update]
   resources :invitations, only: %i[new show update]
