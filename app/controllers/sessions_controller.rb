@@ -8,8 +8,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to root_path, notice: 'Connecté(e).'
     else
-      flash.now[:alert] = 'Combinaison surnom/mot de passe inconnue.'
-      redirect_to sign_in_path
+      redirect_to sign_in_path, notice: 'Combinaison surnom/mot de passe inconnue.'
     end
   end
 
